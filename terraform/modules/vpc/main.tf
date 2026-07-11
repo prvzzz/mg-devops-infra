@@ -11,7 +11,7 @@ resource "aws_vpc" "main" {
     Project     = var.project_name
     Environment = var.environment
     ManagedBy   = "Terraform"
-  }
+   }
 
 }
 
@@ -48,6 +48,10 @@ resource "aws_subnet" "public_subnet_1" {
     Environment = var.environment
 
     ManagedBy = "Terraform"
+  
+   "kubernetes.io/role/elb" = "1"
+  "kubernetes.io/cluster/${var.project_name}-${var.environment}-eks" = "shared"
+
   }
 
 }
@@ -72,6 +76,10 @@ resource "aws_subnet" "public_subnet_2" {
     Environment = var.environment
 
     ManagedBy = "Terraform"
+
+
+  "kubernetes.io/role/elb" = "1"
+  "kubernetes.io/cluster/${var.project_name}-${var.environment}-eks" = "shared"
   }
 
 }
@@ -141,7 +149,11 @@ resource "aws_subnet" "private_subnet_1" {
     Project     = var.project_name
     Environment = var.environment
     ManagedBy   = "Terraform"
-  }
+ 
+
+  "kubernetes.io/role/internal-elb" = "1"
+  "kubernetes.io/cluster/${var.project_name}-${var.environment}-eks" = "shared"
+ }
 
 }
 
@@ -162,7 +174,12 @@ resource "aws_subnet" "private_subnet_2" {
     Project     = var.project_name
     Environment = var.environment
     ManagedBy   = "Terraform"
+
+
+  "kubernetes.io/role/internal-elb" = "1"
+  "kubernetes.io/cluster/${var.project_name}-${var.environment}-eks" = "shared"
   }
+
 
 }
 

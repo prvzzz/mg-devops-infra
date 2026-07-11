@@ -2,15 +2,17 @@ apiVersion: v1
 kind: Service
 
 metadata:
-  name: nginx-service
+  name: consumer-ssr-service
   namespace: mg-devops
 
 spec:
   type: ClusterIP
 
   selector:
-    app: nginx
+    app: consumer-ssr
 
   ports:
-    - port: 80
-      targetPort: 80
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
